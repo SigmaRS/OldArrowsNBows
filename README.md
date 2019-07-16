@@ -1,6 +1,9 @@
 # OldArrowsNBows
 A plugin aimed at changing bow mechanics, bringing back old gameplay features.
 
+## Demonstration
+[![](https://i.imgur.com/M8oNylu.png)](http://www.youtube.com/watch?v=XlmWi-ZfwEg "OldArrowsNBows")
+
 ## Comparision to similiar plugins
 
 X|OldArrowsNBows | OldDays | Old Bow - Bring back old bow
