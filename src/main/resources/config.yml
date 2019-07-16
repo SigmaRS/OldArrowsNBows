@@ -1,0 +1,14 @@
+# OldArrowsNBows configuration file
+general:
+  # The default cooldown time for instantly firing arrows.
+  # 1 arrow every 83 ms = 12 arrows per second
+  cooldown: 250
+  # The durability cost for firing an arrow
+  durability_cost: 1
+  # The default multiplier of knockback for arrows.
+  # mathematical formula:
+  # knockback = knockback_multiplier * [(base knockback) + (knockback enchantment level) * 3]
+  knockback_multiplier: 1.0
+  # The default multiplier of velocity for arrows.
+  # Decreased by default to prevent bows from being overpowered.
+  velocity_multiplier: 0.75

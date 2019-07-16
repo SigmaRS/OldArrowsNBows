@@ -1,0 +1,6 @@
+name: OldArrowsNBows
+version: ${project.version}
+main: io.sigmars.OldArrowsNBows
+authors: [SigmaRS]
+description: A plugin aimed at changing bow mechanics, bringing back old gameplay features.
+website: https://github.com/SigmaRS/OldArrowsNBows
