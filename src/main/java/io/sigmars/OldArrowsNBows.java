@@ -2,6 +2,7 @@ package io.sigmars;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -119,6 +120,8 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                                 eventPlayer.getInventory().removeItem(arrowInv);
                             }
                         }
+                        // Play shooting sound
+                        eventPlayer.getWorld().playSound(eventPlayer.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1.0F, 1.0F);
                         // Fire the bow
                         // NORMAL ARROWS
                         if (arrowInv.getType().equals(Material.ARROW)) {
