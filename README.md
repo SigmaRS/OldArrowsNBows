@@ -9,7 +9,7 @@ Specific to bows *(do one thing and do it well)*|✔️ |❌ *(has many other fe
 1.9 Compatibility|✔️|❌ *(doesn't work with tipped arrows and spectral arrows)* | ❌
 Configurable|✔️|✔️ *(it doesn't have as many settings related to bows as this plugin)* | ❌
 Settings related to bows|✔️ *(4: knockback and velocity multiplier, durability cost, cooldown)*|✔️ *(1: enable and disable the rapidfire)* | ❌
-
+Shooting sound|✔️|✔️|❌
 
 
 ## Compiling
