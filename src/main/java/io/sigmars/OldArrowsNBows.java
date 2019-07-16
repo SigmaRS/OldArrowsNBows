@@ -25,11 +25,11 @@ import java.util.UUID;
 
 public final class OldArrowsNBows extends JavaPlugin implements Listener {
 
-    public final int COOLDOWN_TIME = this.getConfig().getInt("general.cooldown");
-    public final int DURABILITY_COST = this.getConfig().getInt("general.durability_cost");
-    public final double KNOCKBACK_MULTIPLIER = this.getConfig().getDouble("general.knockback_multiplier");
-    public final double VELOCITY_MULTIPLIER = this.getConfig().getDouble("general.velocity_multiplier");
-    public HashMap<UUID, Long> cooldowns = new HashMap<>();
+    private final int COOLDOWN_TIME = this.getConfig().getInt("general.cooldown");
+    private final int DURABILITY_COST = this.getConfig().getInt("general.durability_cost");
+    private final double KNOCKBACK_MULTIPLIER = this.getConfig().getDouble("general.knockback_multiplier");
+    private final double VELOCITY_MULTIPLIER = this.getConfig().getDouble("general.velocity_multiplier");
+    private HashMap<UUID, Long> cooldowns = new HashMap<>();
 
     @Override
     public void onEnable() {
