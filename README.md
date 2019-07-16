@@ -5,7 +5,7 @@ A plugin aimed at changing bow mechanics, bringing back old gameplay features.
 
 X|OldArrowsNBows | OldDays | Old Bow - Bring back old bow
 -|---------|---------|---------
-Specific to bows|✔️ *(do one thing and do it well)*|❌ *(has many other features related to Minecraft Beta and Alpha)* | ✔️
+Specific to bows *(do one thing and do it well)*|✔️ |❌ *(has many other features related to Minecraft Beta and Alpha)* | ✔️
 1.9 Compatibility|✔️|❌ *(doesn't work with tipped arrows and spectral arrows)* | ❌
 Configurable|✔️|✔️ *(it doesn't have as many settings related to bows as this plugin)* | ❌
 Settings related to bows|✔️ *(4: knockback and velocity multiplier, durability cost, cooldown)*|✔️ *(1: enable and disable the rapidfire)* | ❌
