@@ -1,5 +1,4 @@
 package io.sigmars;
-
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -18,12 +17,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
-
 public final class OldArrowsNBows extends JavaPlugin implements Listener {
 
     private final int COOLDOWN_TIME = this.getConfig().getInt("general.cooldown");
@@ -31,7 +28,6 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
     private final double KNOCKBACK_MULTIPLIER = this.getConfig().getDouble("general.knockback_multiplier");
     private final double VELOCITY_MULTIPLIER = this.getConfig().getDouble("general.velocity_multiplier");
     private HashMap<UUID, Long> cooldowns = new HashMap<>();
-
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
@@ -68,9 +64,10 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
     public void onArrowShoot(PlayerInteractEvent event) {
         Player eventPlayer = event.getPlayer();
         if (eventPlayer.getInventory().getItemInMainHand().getType().equals(Material.BOW)) {
-            ItemStack itemInMainHand = eventPlayer.getInventory().getItemInMainHand();
-            eventPlayer.getInventory().setItemInMainHand(null);
             if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                ItemStack itemInMainHand = eventPlayer.getInventory().getItemInMainHand();
+                eventPlayer.getInventory().setItemInMainHand(null);
+                event.setCancelled(true);
                 // Check if the player has any arrow in the inventory
                 if (eventPlayer.getInventory().contains(Material.ARROW)
                         || eventPlayer.getInventory().contains(Material.SPECTRAL_ARROW)
@@ -120,7 +117,6 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                                 eventPlayer.getInventory().removeItem(arrowInv);
                             }
                         }
-                        // Play shooting sound
                         eventPlayer.getWorld().playSound(eventPlayer.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1.0F, 1.0F);
                         // Fire the bow
                         // NORMAL ARROWS
@@ -141,7 +137,6 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                             //Disable bouncing
                             a.setBounce(false);
                         }// NORMAL ARROWS
-
                         // TIPPED ARROWS
                         else if (arrowInv.getType().equals(Material.TIPPED_ARROW)) {
                             PotionMeta meta = (PotionMeta) arrowInv.getItemMeta();
@@ -162,7 +157,6 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                             //Disable bouncing
                             a.setBounce(false);
                         }// TIPPED ARROWS
-
                         // SPECTRAL ARROWS
                         else if (arrowInv.getType().equals(Material.SPECTRAL_ARROW)) {
                             SpectralArrow a = eventPlayer.launchProjectile(SpectralArrow.class);
@@ -183,9 +177,9 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                         }// SPECTRAL ARROWS
                     }
                 }
-            }
-            if (itemInMainHand.getDurability() < itemInMainHand.getType().getMaxDurability() + 1) {
-                eventPlayer.getInventory().setItemInMainHand(itemInMainHand);
+                if (itemInMainHand.getDurability() < itemInMainHand.getType().getMaxDurability() + 1) {
+                    eventPlayer.getInventory().setItemInMainHand(itemInMainHand);
+                }
             }
         }
     }
