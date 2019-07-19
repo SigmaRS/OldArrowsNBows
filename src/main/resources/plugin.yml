@@ -1,6 +1,27 @@
-name: OldArrowsNBows
+name: ${project.artifactId}
 version: ${project.version}
 main: io.sigmars.OldArrowsNBows
 authors: [SigmaRS]
-description: A plugin aimed at changing bow mechanics, bringing back old gameplay features.
-website: https://github.com/SigmaRS/OldArrowsNBows
+description: ${project.description}
+website: ${project.url}
+permissions:
+  oldarrowsnbows.*:
+    description: Enables the usage of all commands.
+    default: op
+    children:
+      oldarrowsnbows.rapidfire:
+        description: Enables the plugin main feature for the specified player.
+        default: false
+      oldarrowsnbows.toggle:
+        description: Enables the usage of the toggle command for a player.
+        default: false
+      oldarrowsnbows.toggleothers:
+        description: Enables the usage of the toggle command for toggling the rapidfire of other players.
+        default: false
+      oldarrowsnbows.seehelp:
+        description: Enables the usage of the help command.
+        default: false
+commands:
+  oldarrowsnbows:
+    description: Toggle bow rapidfire.
+    aliases: [oldab, oldarrows]

@@ -1,4 +1,6 @@
-# OldArrowsNBows configuration file
+#############################################################
+#                     General Settings                      #
+#############################################################
 general:
   # The default cooldown time for instantly firing arrows.
   # 1 arrow every 83 ms = 12 arrows per second
@@ -12,3 +14,37 @@ general:
   # The default multiplier of velocity for arrows.
   # Decreased by default to prevent bows from being overpowered.
   velocity_multiplier: 0.75
+  # Toggle command behavior
+  # true --> the rapidfire is enabled by default
+  # false --> the rapidfire is disabled by default
+  default_toggle: true
+  # Permissions support
+  # Enable if you're using a permissions plugin
+  permissions_enabled: false
+#############################################################
+#      If the server doesn't have a permissions plugin      #
+#############################################################
+no_permissions_plugin:
+  # Enable the usage of the toggle command by normal players
+  toggle_allowed: false
+  # Enable the usage of the help command by normal players
+  help_allowed: true
+#############################################################
+#                         Messages                          #
+#############################################################
+messages:
+  # Message for normal players
+  help_message: |
+    &3[OldArrowsNBows] &fCommand usage:
+    &3&o/oldarrowsnbows toggle: &r&f Toggle bow rapidfire
+  # Message for OPs, admins, moderators, ...
+  help_message_master: |
+    &3[OldArrowsNBows] &fCommand usage:
+    &3&o/oldarrowsnbows toggle: &r&fToggle bow rapidfire
+    &3&o/oldarrowsnbows toggle [player]: &r&fToggle the bow rapidfire for a player
+  console_toggle_help: "[OldArrowsNBows] Console usage: /oldarrowsnbows toggle [player]"
+  no_permission: "&3[OldArrowsNBows] &fYou don't have the required permission to use this command."
+  not_online: "&3[OldArrowsNBows] &fThe specified player isn't online."
+  use_help: "&3[OldArrowsNBows] &fUse /oldarrowsnbows help to see command usage."
+  activated: "&3[OldArrowsNBows] &fRapidfire enabled."
+  deactivated: "&3[OldArrowsNBows] &fRapidfire disabled."

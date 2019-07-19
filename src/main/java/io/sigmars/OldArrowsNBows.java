@@ -1,7 +1,11 @@
 package io.sigmars;
+
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -17,17 +21,55 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+
 public final class OldArrowsNBows extends JavaPlugin implements Listener {
 
-    private final int COOLDOWN_TIME = this.getConfig().getInt("general.cooldown");
-    private final int DURABILITY_COST = this.getConfig().getInt("general.durability_cost");
+    private final boolean DEFAULT_TOGGLE = this.getConfig().getBoolean("general.default_toggle");
+    private final boolean PERMISSIONS_ENABLED = this.getConfig().getBoolean("general.permissions_enabled");
+    private final boolean TOGGLE_ALLOWED = this.getConfig().getBoolean("no_permissions_plugin.toggle_allowed");
     private final double KNOCKBACK_MULTIPLIER = this.getConfig().getDouble("general.knockback_multiplier");
     private final double VELOCITY_MULTIPLIER = this.getConfig().getDouble("general.velocity_multiplier");
+    private final int COOLDOWN_TIME = this.getConfig().getInt("general.cooldown");
+    private final int DURABILITY_COST = this.getConfig().getInt("general.durability_cost");
+    private final boolean HELP_ALLOWED = this.getConfig().getBoolean("no_permissions_plugin.help_allowed");
     private HashMap<UUID, Long> cooldowns = new HashMap<>();
+    private HashMap<UUID, Boolean> toggled = new HashMap<>();
+
+    private void toggleRapidfire(Player target, Boolean sendMsg){
+        // Firstly, check if the player is online and if it exists:
+        if (target != null){
+            if(target.isOnline()){
+                // If the toggle hashmap contains the player toggle status:
+                if (toggled.containsKey(target.getUniqueId())){
+                    // Toggle the rapidfire
+                    if(toggled.get(target.getUniqueId())){
+                        // if rapidfire is activated
+                        toggled.replace(target.getUniqueId(), false);
+                        if (sendMsg){
+                            target.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.deactivated")));
+                        }
+                    } else {
+                        // if rapidfire is not activated
+                        toggled.replace(target.getUniqueId(), true);
+                        if(sendMsg){
+                            target.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.activated")));
+                        }
+                    }
+                } else {
+                    // Create the player toggle status in the hashmap
+                    // if there isn't one
+                    toggled.put(target.getUniqueId(), DEFAULT_TOGGLE);
+                }
+            }
+
+        }
+    }
+
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
@@ -52,6 +94,69 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
         getServer().getLogger().info("[OldArrowsNBows] The plugin has been disabled!");
     }
 
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+        if (cmd.getName().equalsIgnoreCase("oldarrowsnbows")){
+            // Help command
+            getServer().getLogger().info(String.format("Argumentos: %d", args.length));
+            if((args.length == 0)|(args.length == 1 && args[0].equalsIgnoreCase("help"))){
+                // If the sender has permission to see the plugin help
+                if((!PERMISSIONS_ENABLED & HELP_ALLOWED)|
+                !(sender instanceof Player)|
+                sender.hasPermission("oldarrowsnbows.seehelp")){
+                    if(sender instanceof Player && !sender.hasPermission("oldarrowsnbows.*")){
+                        // Regular players
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.help_message")));
+                        return true;
+                    } else {
+                        // Admins, moderators, etc.
+                        if (sender instanceof Player){
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.help_message_master")));
+                        } else {
+                            sender.sendMessage(this.getConfig().getString("messages.console_toggle_help"));
+                        }
+                        return true;
+                    }
+                } else {
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.no_permission")));
+                    return false;
+                }
+            }
+            // Toggle command (regular players)
+            if(args.length == 1 && args[0].equalsIgnoreCase("toggle")){
+                if(sender instanceof Player){
+                    if(sender.hasPermission("oldarrowsnbows.toggle")|(!PERMISSIONS_ENABLED & TOGGLE_ALLOWED)){
+                        Player commandPlayer = ((Player) sender).getPlayer();
+                        toggleRapidfire(commandPlayer, true);
+                        return true;
+                    } else {
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.no_permission")));
+                        return false;
+                    }
+                } else {
+                    sender.sendMessage(this.getConfig().getString("messages.console_toggle_help"));
+                    return false;
+                }
+            }
+            // Toggle command (OP)
+            if(args.length == 2 && args[0].equalsIgnoreCase("toggle")){
+                if(!(sender instanceof Player)|sender.hasPermission("oldarrows.toggleothers")){
+                    Player target = getServer().getPlayer(args[1]);
+                    toggleRapidfire(target, false);
+                    return true;
+                    }
+                } else {
+                    if(sender instanceof Player){
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.no_permission")));
+                    } else {
+                        sender.sendMessage(ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.no_permission"))));
+                    }
+                    return false;
+                }
+            }
+        return false;
+    }
+
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerLeave(PlayerQuitEvent event) {
         // Remove the cooldown key of a player after leaving the server.
@@ -64,14 +169,22 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
     public void onArrowShoot(PlayerInteractEvent event) {
         Player eventPlayer = event.getPlayer();
         if (eventPlayer.getInventory().getItemInMainHand().getType().equals(Material.BOW)) {
-            if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            // Create the player toggle status in the hashmap
+            // if there isn't one
+            if (!(toggled.containsKey(eventPlayer.getUniqueId()))){
+                toggled.put(eventPlayer.getUniqueId(), DEFAULT_TOGGLE);
+            }
+            // Bow rapidfire
+            if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+            &(eventPlayer.hasPermission("oldarrowsnbows.rapidfire")||!PERMISSIONS_ENABLED)
+            &(toggled.get(eventPlayer.getUniqueId()))) { // If toggled key == true
                 ItemStack itemInMainHand = eventPlayer.getInventory().getItemInMainHand();
                 eventPlayer.getInventory().setItemInMainHand(null);
                 event.setCancelled(true);
                 // Check if the player has any arrow in the inventory
                 if (eventPlayer.getInventory().contains(Material.ARROW)
-                        || eventPlayer.getInventory().contains(Material.SPECTRAL_ARROW)
-                        || eventPlayer.getInventory().contains(Material.TIPPED_ARROW)) {
+                | eventPlayer.getInventory().contains(Material.SPECTRAL_ARROW)
+                | eventPlayer.getInventory().contains(Material.TIPPED_ARROW)) {
                     int i = 0;
                     int arrowIndex = 0;
                     // Cycle through the inventory, stop after finding arrows and store the ItemStack.
@@ -82,8 +195,8 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                             continue;
                         }
                         if (eventPlayer.getInventory().getItem(i).getType() == Material.ARROW
-                                || eventPlayer.getInventory().getItem(i).getType() == Material.TIPPED_ARROW
-                                || eventPlayer.getInventory().getItem(i).getType() == Material.SPECTRAL_ARROW) {
+                        | eventPlayer.getInventory().getItem(i).getType() == Material.TIPPED_ARROW
+                        | eventPlayer.getInventory().getItem(i).getType() == Material.SPECTRAL_ARROW) {
                             arrowIndex = i;
                             i = 45;
                         }
@@ -137,6 +250,7 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                             //Disable bouncing
                             a.setBounce(false);
                         }// NORMAL ARROWS
+
                         // TIPPED ARROWS
                         else if (arrowInv.getType().equals(Material.TIPPED_ARROW)) {
                             PotionMeta meta = (PotionMeta) arrowInv.getItemMeta();
@@ -157,6 +271,7 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                             //Disable bouncing
                             a.setBounce(false);
                         }// TIPPED ARROWS
+
                         // SPECTRAL ARROWS
                         else if (arrowInv.getType().equals(Material.SPECTRAL_ARROW)) {
                             SpectralArrow a = eventPlayer.launchProjectile(SpectralArrow.class);
