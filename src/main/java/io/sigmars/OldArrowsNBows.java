@@ -79,14 +79,14 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
         // Create a task that runs every X ticks to prevent overflow in time differences.
         // (It's a joke, but it cleans the memory, so why not?)
         BukkitScheduler scheduler = getServer().getScheduler();
-        scheduler.scheduleSyncDelayedTask(this, new Runnable() {
+        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
                 for (Map.Entry<UUID, Long> entry : cooldowns.entrySet()) {
                     entry.setValue(System.currentTimeMillis());
                 }
             }
-        }, 72000L); // 72000 ticks -> 1 hour in real life
+        }, 0L, 72000L); // 72000 ticks -> 1 hour in real life
     }
 
     @Override
