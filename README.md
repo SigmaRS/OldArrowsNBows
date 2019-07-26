@@ -1,8 +1,8 @@
 # OldArrowsNBows
-A plugin aimed at changing bow mechanics, bringing back old gameplay features.
+![GitHub last commit](https://img.shields.io/github/last-commit/SigmaRS/OldArrowsNBows)
+![GitHub Release Date](https://img.shields.io/github/release-date/SigmaRS/OldArrowsNBows)
 
-## Demonstration video (click to watch)
-[![](https://i.imgur.com/M8oNylu.png)](http://www.youtube.com/watch?v=XlmWi-ZfwEg "OldArrowsNBows")
+A plugin aimed at changing bow mechanics, bringing back old gameplay features.
 
 ## Comparision to similiar plugins
 
