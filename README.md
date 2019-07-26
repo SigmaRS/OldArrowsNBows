@@ -75,7 +75,7 @@ mvn clean package
 
 
 
-* If you don't want to compile, you can also download pre-compiled artifacts by [clicking here](https://github.com/SigmaRS/OldArrowsNBows/releases).
+* If you don't want to compile, you can also download pre-compiled artifacts in the [releases page](https://github.com/SigmaRS/OldArrowsNBows/releases) or [SpigotMC](https://www.spigotmc.org/resources/oldarrowsnbows.69456/). Just move the jar to the plugins folder.
 
 
 
