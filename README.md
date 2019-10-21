@@ -91,7 +91,7 @@ mvn clean package
 
 
 
-* **DouglasB2310** - *Initial work*
+* **douglasb2310** - *Initial work*
 
 
 
