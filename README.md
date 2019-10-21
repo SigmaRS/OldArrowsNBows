@@ -91,7 +91,7 @@ mvn clean package
 
 
 
-* **SigmaRS** - *Initial work*
+* **DouglasB2310** - *Initial work*
 
 
 
