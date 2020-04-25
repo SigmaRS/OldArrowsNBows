@@ -1,5 +1,4 @@
 # OldArrowsNBows
-![GitHub last commit](https://img.shields.io/github/last-commit/SigmaRS/OldArrowsNBows)
 ![GitHub Release Date](https://img.shields.io/github/release-date/SigmaRS/OldArrowsNBows)
 
 A plugin aimed at changing bow mechanics, bringing back old gameplay features.
@@ -23,7 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 
-You can also download pre-compiled artifacts by [clicking here](https://github.com/SigmaRS/MCFoodRegen/releases).
+You can also download pre-compiled artifacts on [releases](https://github.com/SigmaRS/MCFoodRegen/releases), [SpigotMC](https://www.spigotmc.org/resources/oldarrowsnbows.69456/) or [CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/oldarrowsnbows).
 
 
 
