@@ -22,7 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 
-You can also download pre-compiled artifacts on [releases](https://github.com/SigmaRS/MCFoodRegen/releases), [SpigotMC](https://www.spigotmc.org/resources/oldarrowsnbows.69456/) or [CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/oldarrowsnbows).
+You can also download pre-compiled artifacts on [GitHub releases](https://github.com/SigmaRS/MCFoodRegen/releases), [SpigotMC](https://www.spigotmc.org/resources/oldarrowsnbows.69456/) or [CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/oldarrowsnbows).
 
 
 
