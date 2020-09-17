@@ -1,7 +1,7 @@
 # OldArrowsNBows
 ![GitHub](https://img.shields.io/github/license/DouglasB2310/OldArrowsNBows?style=flat-square)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/DouglasB2310/OldArrowsNBows?style=flat-square)
-![GitHub Release Date](https://img.shields.io/github/release-date/DouglasB2310/OldArrowsNBows?style=flat-square))
+![GitHub Release Date](https://img.shields.io/github/release-date/DouglasB2310/OldArrowsNBows?style=flat-square)
 
 A plugin aimed at changing bow mechanics, bringing back old gameplay features.
 
