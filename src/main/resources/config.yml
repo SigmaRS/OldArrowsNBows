@@ -42,9 +42,10 @@ messages:
     &3[OldArrowsNBows] &fCommand usage:
     &3&o/oldarrowsnbows toggle: &r&fToggle bow rapidfire
     &3&o/oldarrowsnbows toggle [player]: &r&fToggle the bow rapidfire for a player
-  console_toggle_help: "[OldArrowsNBows] Console usage: /oldarrowsnbows toggle [player]"
+  console_toggle_help: "[OldArrowsNBows] Console usage: /oldarrowsnbows toggle [player]."
   no_permission: "&3[OldArrowsNBows] &fYou don't have the required permission to use this command."
   not_online: "&3[OldArrowsNBows] &fThe specified player isn't online."
+  not_exists: "&3[OldArrowsNBows] &fThis command doesn't exist. Use /oldarrowsnbows help for a list."
   use_help: "&3[OldArrowsNBows] &fUse /oldarrowsnbows help to see command usage."
   activated: "&3[OldArrowsNBows] &fRapidfire enabled."
   deactivated: "&3[OldArrowsNBows] &fRapidfire disabled."
