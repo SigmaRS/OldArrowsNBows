@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.sigmars</groupId>
+    <groupId>io.github.douglasb2310</groupId>
     <artifactId>OldArrowsNBows</artifactId>
     <version>1.1</version>
     <packaging>jar</packaging>
@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>https://github.com/SigmaRS/OldArrowsNBows</url>
+    <url>https://github.com/DouglasB2310/OldArrowsNBows</url>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
