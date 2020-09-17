@@ -1,7 +1,7 @@
 name: ${project.artifactId}
 version: ${project.version}
-main: io.sigmars.OldArrowsNBows
-authors: [SigmaRS]
+main: io.github.douglasb2310.OldArrowsNBows
+authors: [DouglasB2310]
 description: ${project.description}
 website: ${project.url}
 permissions:
