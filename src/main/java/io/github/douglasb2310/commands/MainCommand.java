@@ -1,6 +1,6 @@
-package io.sigmars.commands;
+package io.github.douglasb2310.commands;
 
-import io.sigmars.utils.CommandInterface;
+import io.github.douglasb2310.utils.CommandInterface;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 

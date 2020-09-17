@@ -1,4 +1,4 @@
-package io.sigmars.utils;
+package io.github.douglasb2310.utils;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

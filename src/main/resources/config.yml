@@ -26,9 +26,9 @@ general:
 #############################################################
 no_permissions_plugin:
   # Enable the usage of the toggle command by normal players
-  toggle_allowed: false
+  is_toggle_allowed: false
   # Enable the usage of the help command by normal players
-  help_allowed: true
+  is_help_allowed: true
 #############################################################
 #                         Messages                          #
 #############################################################

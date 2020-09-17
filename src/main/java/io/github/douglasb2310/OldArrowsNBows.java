@@ -1,8 +1,8 @@
-package io.sigmars;
+package io.github.douglasb2310;
 
-import io.sigmars.commands.sub.HelpCommand;
-import io.sigmars.commands.sub.ToggleCommand;
-import io.sigmars.utils.CommandHandler;
+import io.github.douglasb2310.commands.sub.HelpCommand;
+import io.github.douglasb2310.commands.sub.ToggleCommand;
+import io.github.douglasb2310.utils.CommandHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;

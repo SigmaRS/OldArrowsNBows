@@ -1,7 +1,7 @@
-package io.sigmars.commands.sub;
+package io.github.douglasb2310.commands.sub;
 
-import io.sigmars.OldArrowsNBows;
-import io.sigmars.utils.CommandInterface;
+import io.github.douglasb2310.OldArrowsNBows;
+import io.github.douglasb2310.utils.CommandInterface;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
