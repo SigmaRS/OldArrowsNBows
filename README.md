@@ -1,5 +1,5 @@
 # OldArrowsNBows
-![GitHub Release Date](https://img.shields.io/github/release-date/SigmaRS/OldArrowsNBows)
+![GitHub Release Date](https://img.shields.io/github/release-date/DouglasB2310/OldArrowsNBows)
 
 A plugin aimed at changing bow mechanics, bringing back old gameplay features.
 
@@ -22,7 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 
-You can also download pre-compiled artifacts on [GitHub releases](https://github.com/SigmaRS/MCFoodRegen/releases), [SpigotMC](https://www.spigotmc.org/resources/oldarrowsnbows.69456/) or [CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/oldarrowsnbows).
+You can also download pre-compiled artifacts on [GitHub releases](https://github.com/DouglasB2310/MCFoodRegen/releases), [SpigotMC](https://www.spigotmc.org/resources/oldarrowsnbows.69456/) or [CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/oldarrowsnbows).
 
 
 
@@ -42,7 +42,7 @@ You can also download pre-compiled artifacts on [GitHub releases](https://github
 
 ```
 
-git clone https://github.com/SigmaRS/OldArrowsNBows.git
+git clone https://github.com/DouglasB2310/OldArrowsNBows.git
 
 cd OldArrowsNBows
 
@@ -74,7 +74,7 @@ mvn clean package
 
 
 
-* If you don't want to compile, you can also download pre-compiled artifacts in the [releases page](https://github.com/SigmaRS/OldArrowsNBows/releases) or [SpigotMC](https://www.spigotmc.org/resources/oldarrowsnbows.69456/). Just move the jar to the plugins folder.
+* If you don't want to compile, you can also download pre-compiled artifacts in the [releases page](https://github.com/DouglasB2310/OldArrowsNBows/releases) or [SpigotMC](https://www.spigotmc.org/resources/oldarrowsnbows.69456/). Just move the jar to the plugins folder.
 
 
 
