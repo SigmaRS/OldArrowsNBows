@@ -17,17 +17,15 @@ public class HelpCommand implements CommandInterface {
         final boolean PERMISSIONS_ENABLED = oldArrowsNBows.getConfig().getBoolean("general.permissions_enabled");
         final boolean HELP_ALLOWED = oldArrowsNBows.getConfig().getBoolean("no_permissions_plugin.help_allowed");
 
-        if((!PERMISSIONS_ENABLED & HELP_ALLOWED)|
-                !(sender instanceof Player)|
-                sender.hasPermission("oldarrowsnbows.seehelp")){
-            if(sender instanceof Player && !sender.hasPermission("oldarrowsnbows.*")){
-                // Regular players
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', oldArrowsNBows.getConfig().getString("messages.help_message")));
+        if((!PERMISSIONS_ENABLED & HELP_ALLOWED)
+        |!(sender instanceof Player)
+        |sender.hasPermission("oldarrowsnbows.seehelp")){
+            if(sender instanceof Player && sender.hasPermission("oldarrowsnbows.*")){
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', oldArrowsNBows.getConfig().getString("messages.help_message_master")));
                 return true;
             } else {
-                // Admins, moderators, etc.
                 if (sender instanceof Player){
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', oldArrowsNBows.getConfig().getString("messages.help_message_master")));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', oldArrowsNBows.getConfig().getString("messages.help_message")));
                 } else {
                     sender.sendMessage(oldArrowsNBows.getConfig().getString("messages.console_toggle_help"));
                 }
