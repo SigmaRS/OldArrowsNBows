@@ -38,14 +38,16 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
     private final HashMap<UUID, Long> cooldowns = new HashMap<>();
     private final HashMap<UUID, Boolean> toggled = new HashMap<>();
 
-    @Override
-    public void onDisable() {
-        getServer().getLogger().info("[OldArrowsNBows] The plugin has been disabled!");
-    }
-
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onPlayerLeave(PlayerQuitEvent event) {
-        cooldowns.remove(event.getPlayer().getUniqueId());
+    private void setupCleaner(){
+        // Cooldown times "cleaning":
+        // Create a task that runs every X ticks to prevent overflow in time differences.
+        // (really unnecessary, but it cleans the memory, so why not?)
+        BukkitScheduler scheduler = getServer().getScheduler();
+        scheduler.scheduleSyncRepeatingTask(this, () -> {
+            for (Map.Entry<UUID, Long> entry : cooldowns.entrySet()) {
+                entry.setValue(System.currentTimeMillis());
+            }
+        }, 0L, 72000L); // 72000 ticks -> 1 IRL hour
     }
 
     public void toggleRapidfire(Player target, Boolean sendMsg) {
@@ -71,6 +73,11 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onPlayerLeave(PlayerQuitEvent event) {
+        cooldowns.remove(event.getPlayer().getUniqueId());
+    }
+
     @Override
     public void onEnable() {
         getServer().getLogger().info("[OldArrowsNBows] The plugin has been enabled!");
@@ -81,15 +88,12 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
         handler.registerCmd("help", new HelpCommand(this));
         handler.registerCmd("toggle", new ToggleCommand(this));
         getCommand("oldarrowsnbows").setExecutor(handler);
-        // Cooldown times "cleaning":
-        // Create a task that runs every X ticks to prevent overflow in time differences.
-        // (really unnecessary, but it cleans the memory, so why not?)
-        BukkitScheduler scheduler = getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, () -> {
-            for (Map.Entry<UUID, Long> entry : cooldowns.entrySet()) {
-                entry.setValue(System.currentTimeMillis());
-            }
-        }, 0L, 72000L); // 72000 ticks -> 1 IRL hour
+        setupCleaner();
+    }
+
+    @Override
+    public void onDisable() {
+        getServer().getLogger().info("[OldArrowsNBows] The plugin has been disabled!");
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -106,8 +110,8 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                 eventPlayer.getInventory().setItemInMainHand(null);
                 event.setCancelled(true);
                 if (eventPlayer.getInventory().contains(Material.ARROW)
-                        | eventPlayer.getInventory().contains(Material.SPECTRAL_ARROW)
-                        | eventPlayer.getInventory().contains(Material.TIPPED_ARROW)) {
+                | eventPlayer.getInventory().contains(Material.SPECTRAL_ARROW)
+                | eventPlayer.getInventory().contains(Material.TIPPED_ARROW)) {
                     int i = 0;
                     int arrowIndex = 0;
                     // Cycle through the inventory, stop after finding arrows and store the ItemStack.
@@ -118,8 +122,8 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                             continue;
                         }
                         if (eventPlayer.getInventory().getItem(i).getType() == Material.ARROW
-                                | eventPlayer.getInventory().getItem(i).getType() == Material.TIPPED_ARROW
-                                | eventPlayer.getInventory().getItem(i).getType() == Material.SPECTRAL_ARROW) {
+                        | eventPlayer.getInventory().getItem(i).getType() == Material.TIPPED_ARROW
+                        | eventPlayer.getInventory().getItem(i).getType() == Material.SPECTRAL_ARROW) {
                             arrowIndex = i;
                             i = 45;
                         }
@@ -127,18 +131,14 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                     }
                     ItemStack arrowInv = new ItemStack(eventPlayer.getInventory().getItem(arrowIndex));
                     arrowInv.setAmount(1);
-                    // Some cooldown code to prevent arrow spamming:
-                    // Create a cooldown key in the HashMap for the player if there isn't one.
                     if (!cooldowns.containsKey(eventPlayer.getUniqueId())) {
                         cooldowns.put(eventPlayer.getUniqueId(), System.currentTimeMillis() - COOLDOWN_TIME);
                     }
                     // Check if the cooldown has ran out. (Current time) - (Last time) > (Cooldown)
                     if (System.currentTimeMillis() - cooldowns.get(eventPlayer.getUniqueId()) > COOLDOWN_TIME) {
                         cooldowns.replace(eventPlayer.getUniqueId(), System.currentTimeMillis());
-                        // Consume arrows and reduce bow durability on survival and adventure mode
                         if (eventPlayer.getGameMode() == GameMode.SURVIVAL || eventPlayer.getGameMode() == GameMode.ADVENTURE) {
-                            // Unbreaking enchantment
-                            if (itemInMainHand.containsEnchantment(Enchantment.DURABILITY)) {
+                            if (itemInMainHand.containsEnchantment(Enchantment.DURABILITY)) { // Unbreaking enchantment
                                 Random r = new Random();
                                 float unbreakingChance = 100.0f / itemInMainHand.getEnchantmentLevel(Enchantment.DURABILITY) + 1;
                                 float random = r.nextFloat() * 100;
@@ -148,7 +148,6 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
                             } else {
                                 itemInMainHand.setDurability((short) (itemInMainHand.getDurability() + DURABILITY_COST));
                             }
-                            // Infinity Enchantment
                             if (!itemInMainHand.containsEnchantment(Enchantment.ARROW_INFINITE)) {
                                 eventPlayer.getInventory().removeItem(arrowInv);
                             }
