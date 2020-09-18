@@ -1,5 +1,6 @@
 package io.github.douglasb2310;
 
+import io.github.douglasb2310.commands.sub.AboutCommand;
 import io.github.douglasb2310.commands.sub.HelpCommand;
 import io.github.douglasb2310.commands.sub.ToggleCommand;
 import io.github.douglasb2310.utils.CommandHandler;
@@ -50,6 +51,13 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
         }, 0L, 72000L); // 72000 ticks -> 1 IRL hour
     }
 
+    public boolean isRapidfireEnabled(Player target){
+        if (target != null && target.isOnline() && toggled.containsKey(target.getUniqueId())){
+             return toggled.get(target.getUniqueId());
+        }
+        return false;
+    }
+
     public void toggleRapidfire(Player target, Boolean sendMsg) {
         if (target != null) {
             if (target.isOnline()) {
@@ -87,6 +95,7 @@ public final class OldArrowsNBows extends JavaPlugin implements Listener {
         CommandHandler handler = new CommandHandler();
         handler.registerCmd("help", new HelpCommand(this));
         handler.registerCmd("toggle", new ToggleCommand(this));
+        handler.registerCmd("about", new AboutCommand());
         getCommand("oldarrowsnbows").setExecutor(handler);
         setupCleaner();
     }

@@ -20,8 +20,9 @@ public class ToggleCommand implements CommandInterface {
 
         final String MSG_NO_PERMISSION = oldArrowsNBows.getConfig().getString("messages.no_permission");
         final String MSG_HELP_CONSOLE = oldArrowsNBows.getConfig().getString("messages.console_toggle_help");
+        final String MSG_TOGGLED_FOR = oldArrowsNBows.getConfig().getString("messages.toggled_for");
 
-        if (args.length == 0){
+        if (args.length == 1){
             if (sender instanceof Player) {
                 if (sender.hasPermission("oldarrowsnbows.toggle") | (!PERMISSIONS_ENABLED & TOGGLE_ALLOWED)) {
                     Player commandPlayer = ((Player) sender).getPlayer();
@@ -36,9 +37,13 @@ public class ToggleCommand implements CommandInterface {
                 return true;
             }
         }
-        if (args.length == 1){
-            if (sender.hasPermission("oldarrows.toggleothers") | !(sender instanceof Player)) {
-                Player target = oldArrowsNBows.getServer().getPlayer(args[0]);
+        if (args.length == 2){
+            if (!(sender instanceof Player) | sender.hasPermission("oldarrows.toggleothers")) {
+                Player target = oldArrowsNBows.getServer().getPlayer(args[1]);
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', MSG_TOGGLED_FOR
+                        .replace("{0}", args[1])
+                        .replace("{1}","" + !(oldArrowsNBows.isRapidfireEnabled(oldArrowsNBows.getServer().getPlayer(args[1]))))
+                ));
                 oldArrowsNBows.toggleRapidfire(target, false);
                 return true;
             }

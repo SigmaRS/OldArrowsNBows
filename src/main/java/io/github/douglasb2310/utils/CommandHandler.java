@@ -26,7 +26,7 @@ public class CommandHandler implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
         if(args.length == 0) {
-            getExecutor("about").onCommand(sender, cmd, Label, args);
+            getExecutor("help").onCommand(sender, cmd, Label, args);
             return false;
         }
         if(args.length > 0) {
